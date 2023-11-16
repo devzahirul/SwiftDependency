@@ -59,7 +59,11 @@ class AppDependencyProvider: DependencyProvidable {
 
 ```
 ## How to use in App
-import & add dependency in your application start 
+Add Swift Package 
+```swift
+https://github.com/devzahirul/SwiftDependency.git
+```
+Then, import & add dependency in your application start 
 ```swift
 import SwiftUI
 import SwiftDependency
