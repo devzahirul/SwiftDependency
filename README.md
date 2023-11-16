@@ -58,4 +58,60 @@ class AppDependencyProvider: DependencyProvidable {
 }
 
 ```
+## How to use in App
+import & add dependency in your application start 
+```swift
+import SwiftUI
+import SwiftDependency
+
+
+@main
+struct CleanArchectureApp: App {
+    
+    init() {
+       // manage dependency 
+      let orderFlowDataSource = OrderFlowDataSource()
+      let orderRepo = OrderFlowRepository(dataSource: orderFlowDataSource)
+      let addOrderItemUseCase = AddOrderItemUseCase(repo: orderRepo)
+      
+      //add dependency
+      DI.add(addOrderItemUseCase)
+      
+    }
+    
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+
+```
+Then use `@Inject` PropertyWrapper inside your ViewModel. Here an example of `OrderFlowViewModel`
+```swift
+import Combine
+import SwiftDependency
+
+class OrderFlowViewModel: ObservableObject {
+    // inject usecases using @Inject propertywrapper
+    @Inject<AddOrderItemUseCase> private var orderItemUseCase
+    
+    // published
+    @Published private var addItemStatus: Bool = false
+    
+    func addInOrderFlow(orderItem: OrderItem) async {
+       let result = await orderItemUseCase.execute(requestModel: orderItem)
+       
+       switch result {
+         case .success(let addStatus): do {
+         self.addItemStatus = addStatus
+         print("Item add status: \(addStatus)")}
+         case .failure(let error): do { print("Fail to add item: \(error.localizedDescription)")}
+       }
+    }
+}
+
+```
 ### Feel free to use and modify this code according to your project's requirements. If you have any questions or improvements, please feel free to contribute or reach out.
