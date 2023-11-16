@@ -12,11 +12,12 @@ enum AppEnvironment {
   case Dev
   case Production
   case Staging
-}```
+}
+```
 
 The AppEnvironment enum represents different application environments, allowing for configuration based on the current deployment stage.
 
-###DependencyProvidable Protocol
+## DependencyProvidable Protocol
 ```swift
 protocol DependencyProvidable {
   var currentEnvironment: AppEnvironment { get set }
@@ -29,7 +30,7 @@ protocol DependencyProvidable {
 ```
 The DependencyProvidable protocol defines the contract for managing dependencies. It includes methods for adding, removing, and retrieving dependencies based on their type.
 
-###AppDependencyProvider Class
+## AppDependencyProvider Class
 ```swift
 class AppDependencyProvider: DependencyProvidable {
   var currentEnvironment: AppEnvironment
@@ -57,4 +58,4 @@ class AppDependencyProvider: DependencyProvidable {
 }
 
 ```
-#####Feel free to use and modify this code according to your project's requirements. If you have any questions or improvements, please feel free to contribute or reach out.
+### Feel free to use and modify this code according to your project's requirements. If you have any questions or improvements, please feel free to contribute or reach out.
