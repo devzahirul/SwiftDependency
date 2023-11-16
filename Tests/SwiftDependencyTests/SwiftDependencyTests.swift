@@ -2,10 +2,16 @@ import XCTest
 @testable import SwiftDependency
 
 final class SwiftDependencyTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(SwiftDependency().text, "Hello, World!")
-    }
+   func test_when_add_single_dependency() {
+   //When
+    let itemRepo = ItemRepository()
+    let addItemUseCase = AddItemUseCase(repo: itemRepo)
+    //Then
+     DI.add(addItemUseCase)
+     
+     let itemViewModel = ItemViewModel()
+     
+     XCTAssertNotNil(itemViewModel.addItemUseCase)
+     
+   }
 }
